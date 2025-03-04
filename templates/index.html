@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NBA Game Rankings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Top 3 NBA Games from {{ date }}</h1>
+    <ul>
+    {% for game in games %}
+        <li>{{ game.game }} - Score: {{ game.score }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

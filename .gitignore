@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+nba_ranker_env/
+data/*.csv  # Optional: Exclude CSVs if you don’t want them in the repo
