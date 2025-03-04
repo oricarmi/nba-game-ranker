@@ -18,5 +18,8 @@ def rank_games(games, news_texts):
         game_text = [t for t in news_texts if game["team1"] in t or game["team2"] in t]
         excitement = rank_excitement(game_text)
         score = (10 if game["overtime"] else 0) + (10 - game["score_diff"]) + excitement
-        ranked_games.append({"game": f"{game['team1']} vs {game['team2']}", "score": score})
+        ranked_games.append(
+            {"game": f"{game['team1']} vs {game['team2']}",
+             "score_diff": game["score_diff"],
+             "score": score})
     return sorted(ranked_games, key=lambda x: x["score"], reverse=True)[:3]

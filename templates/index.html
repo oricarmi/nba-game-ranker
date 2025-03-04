@@ -2,14 +2,15 @@
 <html>
 <head>
     <title>NBA Game Rankings</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <h1>Top 3 NBA Games from {{ date }}</h1>
-    <ul>
+    <ol class="game-list">
     {% for game in games %}
-        <li>{{ game.game }} - Score: {{ game.score }}</li>
+        <li>{{ game.game }} - Score: {{ game.score }} (score diff: {{ game.score_diff }})</li>
     {% endfor %}
-    </ul>
+    </ol>
 </body>
 </html>
+

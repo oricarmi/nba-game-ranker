@@ -1,11 +1,13 @@
 # app/server.py
 from flask import Flask, render_template
-from .scraper import scrape_game_stats, scrape_news
-from .ranker import rank_games
+from scraper import scrape_game_stats, scrape_news
+from ranker import rank_games
 import pandas as pd
 from datetime import datetime, timedelta
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates'),
+            static_folder=os.path.join(os.path.dirname(__file__), '..', 'static'))
 
 @app.route('/')
 def home():

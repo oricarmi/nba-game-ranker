@@ -10,16 +10,19 @@ def scrape_game_stats():
     soup = BeautifulSoup(response.content, "html.parser")
     games = []
     for game in soup.select(".game_summary"):
-        teams = game.select(".teams a")
-        score_text = game.select_one(".right").text.strip()
-        if teams and score_text:
-            team1, team2 = teams[0].text, teams[1].text
-            scores = [int(s) for s in score_text.split() if s.isdigit()]
+        teams = [t.text.strip() for t in game.select("td:not(.right)")]
+        team1 = teams[0]
+        team2 = teams[1]
+        all_right_elements = game.select("td.right")
+        right_only = [elem for elem in all_right_elements if elem.get("class") == ["right"]]
+        team1_score = int(right_only[0].text.strip())
+        team2_score = int(right_only[1].text.strip())
+        if team1 and team2 and team1_score and team2_score:
             overtime = "OT" in game.text
             games.append({
                 "team1": team1, "team2": team2,
-                "score1": scores[0], "score2": scores[1],
-                "overtime": overtime, "score_diff": abs(scores[0] - scores[1])
+                "score1": team1_score, "score2": team2_score,
+                "overtime": overtime, "score_diff": abs(team1_score - team2_score)
             })
     return games
 
